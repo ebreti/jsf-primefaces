@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+	<title>Login</title>
+</h:head>
+<h:body>
+	<p:panelGrid style="width:100%" columns="3">
+	    <f:facet name="header" style="text-align:center">
+			Identifique-se
+		</f:facet>
+		<f:facet name="footer">
+		    <p:messages id="messages" closable="true" />
+		</f:facet>
+		<h:form id="login" style="margin-left:10%;margin-right:10%">
+			Preciso de sua identificação para acumular os pontos.<br />
+			<p:separator />
+			<p:row>
+				<p:column style="text-align:left">
+					Email. : 
+				</p:column>
+				<p:column style="text-align:left">
+					<h:inputText id="email" value="#{user.login}" required="true"
+						colspan="2" size="33" disabled="#{user.estado == 'CONHECIDO'}"
+						validator="#{user.validateEmailAddress}" /><br />
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column style="width:25%;">
+			  		Senha : 
+				</p:column>
+				<p:column colspan="2">
+		 	  		<h:inputSecret id="senha" value="#{user.password}" 
+						size="20" required="true"
+						disabled="#{user.estado == 'CONHECIDO'}" 
+						validator="#{user.validatePassword}" /><br />
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column style="width:25%;">
+					Nome : 
+				</p:column>
+				<p:column>
+					<h:inputText id="nome" value="#{user.nickname}" required="false"
+						size="33" disabled="#{user.estado == 'CONHECIDO'}" /><br />
+				</p:column>
+				<p:separator />
+			</p:row>
+			<p:row>
+				<p:column colspan="2" style="width:60%">
+					...
+				</p:column>
+				<p:column>
+					<h:commandButton id="Login" value="Login"
+						action="#{user.reset}" disabled="#{user.estado == 'CONHECIDO'}" />
+				</p:column>
+			</p:row>
+		</h:form>
+	</p:panelGrid>
+	<br style="clear: both" />
+</h:body>
+</html>
