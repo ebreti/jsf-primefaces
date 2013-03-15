@@ -29,49 +29,93 @@
             <p:panelGrid>
                 <f:facet name="header">
                     <p:row>
-                        <p:column colspan="6">Time Chart</p:column>
-                    </p:row>
-                    <p:row>
-                        <p:column/>
-                        <p:column>Monday</p:column>
-                        <p:column>Tuesday</p:column>
-                        <p:column>Wednesday</p:column>
-                        <p:column>Thursday</p:column>
-                        <p:column>Friday</p:column>
+                        <p:column colspan="12">Identifique-se</p:column>
                     </p:row>
                 </f:facet>
 
                 <p:row>
-                    <p:column rowspan="4">Hours</p:column>
-                    <p:column>Science</p:column>
-                    <p:column>Math</p:column>
-                    <p:column rowspan="2" style="text-align:center">Project</p:column>
-                    <p:column>Math</p:column>
-                    <p:column>Arts</p:column>
-                </p:row>
-
-                <p:row>
-                    <p:column>Social</p:column>
-                    <p:column>History</p:column>
-                    <p:column>Sports</p:column>
-                    <p:column>Math</p:column>
-                </p:row>
-
-                <p:row>
-                    <p:column colspan="6" style="text-align:center">Lunch</p:column>
-                </p:row>
-
-                <p:row>
-                    <p:column>Math</p:column>
-                    <p:column>History</p:column>
-                    <p:column>English</p:column>
-                    <p:column>Science</p:column>
-                    <p:column>Arts</p:column>
-                </p:row>
+					<p:column rowspan="4" />
+					<p:column colspan="10" style="text-align:center">
+						Preciso de sua identificação para acumular os pontos
+					</p:column>
+					<p:column rowspan="4" />
+				</p:row>
+				<p:separator />
+				<p:row>
+					<p:column colspan="3">
+					</p:column>
+					<p:column colspan="7">
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column colspan="3">
+					</p:column>
+					<p:column colspan="7">
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column colspan="3">
+					</p:column>
+					<p:column colspan="7">
+					</p:column>
+				</p:row>
+				<p:separator />
+				<p:row>
+					<p:column colspan="4" style="text-align:center">
+						<h:commandButton id="Login" value="Login"
+							action="#{user.reset}" disabled="#{user.estado == 'CONHECIDO'}" />
+					</p:column>
+					<p:column colspan="4" style="text-align:center">
+						<h:commandButton id="Reset" value="Reset"
+							action="#{user.reset}" disabled="#{user.estado == 'CONHECIDO'}" />
+					</p:column>
+					<p:column colspan="4" style="text-align:center">
+						<h:commandButton id="Logout" value="Logout"
+							action="#{user.reset}" disabled="#{user.estado == 'CONHECIDO'}" />
+					</p:column>
+				</p:row>
+				<p:row style="row-height: 1px; border: 0">
+					<p:column style="foreground-color: white; column-width: 8.3%; height: 1px; border: 0">
+						****
+					</p:column>
+					<p:column style="foreground-color: white; column-width: 8.3%; height: 1px; border: 0">
+						****
+					</p:column>
+					<p:column style="foreground-color: white; column-width: 8.3%; height: 1px; border: 0">
+						****
+					</p:column>
+					<p:column style="foreground-color: white; column-width: 8.3%; height: 1px; border: 0">
+						****
+					</p:column>
+					<p:column style="foreground-color: white; column-width: 8.3%; height: 1px; border: 0">
+						****
+					</p:column>
+					<p:column style="foreground-color: white; column-width: 8.3%; height: 1px; border: 0">
+						****
+					</p:column>
+					<p:column style="foreground-color: white; column-width: 8.3%; height: 1px; border: 0">
+						****
+					</p:column>
+					<p:column style="foreground-color: white; column-width: 8.3%; height: 1px; border: 0">
+						****
+					</p:column>
+					<p:column style="foreground-color: white; column-width: 8.3%; height: 1px; border: 0">
+						****
+					</p:column>
+					<p:column style="foreground-color: white; column-width: 8.3%; height: 1px; border: 0">
+						****
+					</p:column>
+					<p:column style="foreground-color: white; column-width: 8.3%; height: 1px; border: 0">
+						****
+					</p:column>
+					<p:column style="foreground-color: white; column-width: 8.3%; height: 1px; border: 0">
+						****
+					</p:column>
+				</p:row>
 
                 <f:facet name="footer">
                     <p:row>
-                        <p:column  colspan="6">Duration: 40 minutes</p:column>
+                        <p:column  colspan="12">Duration: 40 minutes</p:column>
                     </p:row>
                 </f:facet>
             </p:panelGrid>
