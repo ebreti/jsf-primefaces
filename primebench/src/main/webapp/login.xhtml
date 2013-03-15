@@ -20,46 +20,21 @@
 		<h:form id="login" style="margin-left:10%;margin-right:10%">
 			Preciso de sua identificação para acumular os pontos.<br />
 			<p:separator />
-			<p:row>
-				<p:column style="text-align:left">
-					Email. : 
-				</p:column>
-				<p:column style="text-align:left">
-					<h:inputText id="email" value="#{user.login}" required="true"
-						colspan="2" size="33" disabled="#{user.estado == 'CONHECIDO'}"
-						validator="#{user.validateEmailAddress}" /><br />
-				</p:column>
-			</p:row>
-			<p:row>
-				<p:column style="width:25%;">
-			  		Senha : 
-				</p:column>
-				<p:column colspan="2">
-		 	  		<h:inputSecret id="senha" value="#{user.password}" 
-						size="20" required="true"
-						disabled="#{user.estado == 'CONHECIDO'}" 
-						validator="#{user.validatePassword}" /><br />
-				</p:column>
-			</p:row>
-			<p:row>
-				<p:column style="width:25%;">
-					Nome : 
-				</p:column>
-				<p:column>
-					<h:inputText id="nome" value="#{user.nickname}" required="false"
-						size="33" disabled="#{user.estado == 'CONHECIDO'}" /><br />
-				</p:column>
-				<p:separator />
-			</p:row>
-			<p:row>
-				<p:column colspan="2" style="width:60%">
-					...
-				</p:column>
-				<p:column>
-					<h:commandButton id="Login" value="Login"
-						action="#{user.reset}" disabled="#{user.estado == 'CONHECIDO'}" />
-				</p:column>
-			</p:row>
+			Email. : 
+			<h:inputText id="email" value="#{user.login}" required="true"
+				colspan="2" size="33" disabled="#{user.estado == 'CONHECIDO'}"
+				validator="#{user.validateEmailAddress}" /><br />
+			Senha : 
+ 	  		<h:inputSecret id="senha" value="#{user.password}" 
+				size="20" required="true"
+				disabled="#{user.estado == 'CONHECIDO'}" 
+				validator="#{user.validatePassword}" /><br />
+			Nome : 
+			<h:inputText id="nome" value="#{user.nickname}" required="false"
+				size="33" disabled="#{user.estado == 'CONHECIDO'}" /><br />
+			<p:separator />
+			<h:commandButton id="Login" value="Login"
+				action="#{user.reset}" disabled="#{user.estado == 'CONHECIDO'}" />
 		</h:form>
 	</p:panelGrid>
 	<br style="clear: both" />
