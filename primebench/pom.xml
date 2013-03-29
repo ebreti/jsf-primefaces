@@ -39,7 +39,7 @@
 		<dependency>
 			<groupId>org.primefaces</groupId>
 			<artifactId>primefaces</artifactId>
-			<version>3.6-SNAPSHOT</version>
+			<version>3.5-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.primefaces.themes</groupId>
@@ -84,11 +84,6 @@
 			<groupId>javax.inject</groupId>
 			<artifactId>javax.inject</artifactId>
 			<version>1</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.derby</groupId>
-			<artifactId>derby</artifactId>
-			<version>10.2.2.0</version>
 		</dependency>
 	</dependencies>
 
