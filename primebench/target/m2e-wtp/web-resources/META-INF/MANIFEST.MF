@@ -2,5 +2,4 @@ Manifest-Version: 1.0
 Built-By: Flavio
 Build-Jdk: 1.7.0_13
 Created-By: Maven Integration for Eclipse
-Dependencies: org.slf4j
 
