@@ -13,14 +13,25 @@
 	var foco = document.getElementById('adivinhe:numero');
 	foco.value = '';
 	foco.focus();}">
-	<p:panel header="Adivinhe o número..." style="text-align: center;">
+	<!-- Esta solução é absurdamente dependente da língua portuguesa. -->
+	<p:panel style="text-align: center;">
+		<f:facet name="header">
+			Adivinhe o número...
+		</f:facet>
 		<f:facet name="footer">
 		    <p:messages id="messages" closable="true" />  
 		</f:facet>
 		<h:form id="adivinhe">
 			<!-- Instructions for the user -->
-			Estou pensando em um número entre <span id="adivinhe:menor">#{game.smallest}</span>
-			e <span id="adivinhe:maior">#{game.biggest}</span>.
+			<h:outputText id="estive" value="Estava "
+              	rendered="#{game.estado == 'TERMINADO'}" />
+			<h:outputText id="estou" value="Estou "
+              	rendered="#{game.estado == 'PRONTO'}" />
+			pensando
+			<h:outputText id="unico" value="em apenas um único número: #{game.smallest}."
+              	rendered="#{game.smallest == game.biggest}" />
+			<h:outputText id="varios" value="em um número entre #{game.smallest}	e #{game.biggest}."
+              	rendered="#{game.smallest != game.biggest}" />
 			<p:separator />
 			<!-- Input box for the users guess, plus a button to submit, and reset -->
 			<!-- These are bound using EL to our CDI beans -->
@@ -47,7 +58,8 @@
 				rendered="#{game.estado == 'TERMINADO'}"
 				action="#{game.reset}" immediate="true" />
 			<p:separator />
-			Você está com [#{game.pontos}] pontos.
+			Você está com [#{game.pontos}] pontos.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	    	<h:commandButton action="home" immediate="true" value="Menu" />
 		</h:form>
 	</p:panel>
 	<br style="clear: both" />
