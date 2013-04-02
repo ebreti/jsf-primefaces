@@ -7,6 +7,7 @@
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta author="fmarianoc" />
 	<title>Adivinhe o número</title>
 </h:head>
 <h:body onload="if(#{game.estado == 'PRONTO'}){
@@ -16,7 +17,11 @@
 	<!-- Esta solução é absurdamente dependente da língua portuguesa. -->
 	<p:panel style="text-align: center;">
 		<f:facet name="header">
-			Adivinhe o número...
+			<h:outputText id="conhecido" value="#{user.nickname} adivinhe"
+              	rendered="#{user.estado == 'CONHECIDO'}" />
+			<h:outputText id="anonimo" value="Adivinhe"
+              	rendered="#{user.estado != 'CONHECIDO'}" />
+			 o número...
 		</f:facet>
 		<f:facet name="footer">
 		    <p:messages id="messages" closable="true" />  

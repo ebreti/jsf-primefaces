@@ -49,6 +49,7 @@ import javax.inject.Named;
  * </p>
  *
  * @author Pete Muir
+ * @contributor fmarianoc
  *
  */
 @Named
@@ -164,10 +165,7 @@ public class Game implements Serializable {
 	}
 
 	private long premiaPrecisao() {
-		if (this.biggest == this.smallest) {
-			return this.remainingGuesses * 50;
-		}
-		return this.remainingGuesses * (this.biggest - this.smallest) * 10;
+		return this.remainingGuesses * (this.biggest - this.smallest + 1) * 30;
 	}
 
 	private FacesMessage getWinnerMessage() {

@@ -33,8 +33,14 @@
 			<h:inputText id="nome" value="#{user.nickname}" required="false"
 				size="33" disabled="#{user.estado == 'CONHECIDO'}" /><br />
 			<p:separator />
-			<h:commandButton id="Login" value="Login"
-				action="#{user.reset}" disabled="#{user.estado == 'CONHECIDO'}" />
+			<h:commandButton id="login" value="Login"
+				action="#{user.loggedIn}" disabled="#{user.estado == 'CONHECIDO'}" />
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<h:commandButton id="logout" value="Logout"
+				action="#{user.loggedOut}" disabled="#{user.estado == 'DESCONHECIDO'}" />
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<h:commandButton id="reset" value="Reset"
+				action="#{user.reset}" immediate="true" />
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	    	<h:commandButton action="home" immediate="true" value="Menu" />
 		</h:form>

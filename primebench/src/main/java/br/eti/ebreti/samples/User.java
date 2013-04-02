@@ -10,6 +10,11 @@ import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
+/**
+ * User.
+ * 
+ * @author fmarianoc
+ */
 @Named
 @SessionScoped
 public class User implements Serializable {
@@ -40,8 +45,19 @@ public class User implements Serializable {
 	@PostConstruct
 	public void reset() {
 		this.estado = UserState.DESCONHECIDO;
+		this.login = null;
+		this.password = null;
+		this.nickname = null;
 	}
-	
+
+	public void loggedIn() {
+		this.estado = UserState.CONHECIDO;
+	}
+
+	public void loggedOut() {
+		this.estado = UserState.DESCONHECIDO;
+	}
+
 	public void validateEmailAddress(FacesContext context,
 			UIComponent toValidate, Object value) {
 		String input = (String) value;
