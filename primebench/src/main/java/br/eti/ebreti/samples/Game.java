@@ -182,7 +182,7 @@ public class Game implements Serializable {
 			this.pontos += 2000;
 		} else {
 			winnerMessage = new FacesMessage("Parabéns! Você acertou na "
-					+ (Game.CHANCES + 1 - this.remainingGuesses) + "a tentativa.");
+					+ (Game.CHANCES + 1 - this.remainingGuesses) + "ª tentativa.");
 		}
 		return winnerMessage;
 	}
