@@ -65,6 +65,10 @@
 			<p:separator />
 			Você está com [#{game.pontos}] pontos.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	    	<h:commandButton action="home" immediate="true" value="Menu" />
+			<p:separator />
+			Média: [#{game.mediaFormatada}] &nbsp;&nbsp;&nbsp;
+			Tentativas: [#{game.escolhas}] &nbsp;&nbsp;&nbsp; 
+			Jogos: [#{game.partidas}]
 		</h:form>
 	</p:panel>
 	<br style="clear: both" />

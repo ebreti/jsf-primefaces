@@ -69,9 +69,11 @@ public class Game implements Serializable {
 	private GameState estado;
 
 	/**
-	 * Score.
+	 * Scores.
 	 */
 	private int pontos;
+	private int escolhas;
+	private int partidas;
 
 	/**
 	 * Timestamp.
@@ -120,6 +122,8 @@ public class Game implements Serializable {
 
 	public Game() {
 		this.pontos = 0;
+		this.escolhas = 0;
+		this.partidas = 0;
 	}
 
 	/**
@@ -129,6 +133,7 @@ public class Game implements Serializable {
 	 */
 	public void check() {
 		Calendar tempo = Calendar.getInstance();
+		this.escolhas++;
 		long delta = tempo.getTimeInMillis() - this.t1.getTimeInMillis();
 		this.pontos += premiaRapidez(delta); 
 		if (guess == number) {
@@ -201,6 +206,7 @@ public class Game implements Serializable {
 		this.remainingGuesses = Game.CHANCES;
 		this.biggest = maxNumber;
 		this.number = randomNumber.get();
+		this.partidas++;
 		this.t1 = Calendar.getInstance();
 	}
 
@@ -238,6 +244,22 @@ public class Game implements Serializable {
 		this.pontos = pontos;
 	}
 
+	public int getEscolhas() {
+		return escolhas;
+	}
+
+	public void setEscolhas(int escolhas) {
+		this.escolhas = escolhas;
+	}
+
+	public int getPartidas() {
+		return partidas;
+	}
+
+	public void setPartidas(int partidas) {
+		this.partidas = partidas;
+	}
+
 	public Calendar getT1() {
 		return t1;
 	}
@@ -269,4 +291,14 @@ public class Game implements Serializable {
 	public int getRemainingGuesses() {
 		return remainingGuesses;
 	}
+
+	public String getMediaFormatada() {
+		if (this.escolhas == 0) {
+			return "N/A";
+		} else {
+			Double media = (double) (this.pontos / this.escolhas);
+			return String.valueOf(media.intValue());
+		}
+	}
+
 }
