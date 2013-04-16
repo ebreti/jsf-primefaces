@@ -17,7 +17,9 @@
 package br.eti.ebreti.samples;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
@@ -28,6 +30,8 @@ import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+
+import org.primefaces.model.chart.MeterGaugeChartModel;
 
 /**
  * <p>
@@ -119,6 +123,8 @@ public class Game implements Serializable {
 	@Inject
 	@Random
 	Instance<Integer> randomNumber;
+
+    private MeterGaugeChartModel model;
 
 	public Game() {
 		this.pontos = 0;
@@ -294,11 +300,39 @@ public class Game implements Serializable {
 
 	public String getMediaFormatada() {
 		if (this.escolhas == 0) {
-			return "N/A";
+			return "comece";
 		} else {
 			Double media = (double) (this.pontos / this.escolhas);
 			return String.valueOf(media.intValue());
 		}
+	}
+
+	public Number getDesempenho() {
+		if (this.escolhas == 0) {
+			return 100;
+		} else {
+			Double desempenho = (double) (110 - ((10 * this.escolhas) / this.partidas));
+			return desempenho.intValue();
+		}
+	}
+
+	@SuppressWarnings("serial")
+	public MeterGaugeChartModel getModel() {
+        List<Number> intervals = new ArrayList<Number>(){{
+            add(35);
+            add(85);
+            add(100);
+        }};
+        List<Number> ticks = new ArrayList<Number>(){{
+            add(0);
+            add(20);
+            add(40);
+            add(60);
+            add(80);
+            add(100);
+        }};
+        this.model = new MeterGaugeChartModel(this.getDesempenho(), intervals, ticks);
+		return model;
 	}
 
 }
