@@ -23,9 +23,6 @@
               	rendered="#{user.estado != 'CONHECIDO'}" />
 			 o número...
 		</f:facet>
-		<f:facet name="footer">
-		    <p:messages id="messages" closable="true" />  
-		</f:facet>
 		<h:form id="adivinhe">
 			<!-- Instructions for the user -->
 			<h:outputText id="estive" value="Estava "
@@ -48,6 +45,10 @@
 			<h:commandButton id="Escolha" value="Escolha"
 				action="#{game.check}" disabled="#{game.estado == 'TERMINADO'}" />
 			<p:separator />
+		    <p:messages id="messages" closable="true" />  
+            <p:meterGaugeChart value="#{game.model}" intervalOuterRadius="133" 
+            	label="Desempenho" labelHeightAdjust="110" style="height: 230px" />
+			<p:separator />
 			Você 
 			<h:outputText id="tinha" value="tinha"
               	rendered="#{game.estado == 'TERMINADO'}" />
@@ -66,9 +67,6 @@
 			Você está com [#{game.pontos}] pontos.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	    	<h:commandButton action="home" immediate="true" value="Menu" />
 			<p:separator />
-            <p:meterGaugeChart value="#{game.model}" intervalOuterRadius="133" 
-            	label="Desempenho" labelHeightAdjust="110" style="height: 230px" />
-			<br />
 			Média: [#{game.mediaFormatada}] &nbsp;&nbsp;&nbsp;
 			Tentativas: [#{game.escolhas}] &nbsp;&nbsp;&nbsp; 
 			Jogos: [#{game.partidas}]

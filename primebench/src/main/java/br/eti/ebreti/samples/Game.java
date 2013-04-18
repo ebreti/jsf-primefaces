@@ -22,13 +22,14 @@ import java.util.Calendar;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.SessionScoped;
 import javax.enterprise.inject.Instance;
-import javax.enterprise.inject.Model;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.primefaces.model.chart.MeterGaugeChartModel;
 
@@ -55,7 +56,8 @@ import org.primefaces.model.chart.MeterGaugeChartModel;
  * @contributor fmarianoc
  *
  */
-@Model
+@Named
+@SessionScoped
 public class Game implements Serializable {
 
 	private static final long serialVersionUID = -4922390286153874072L;
