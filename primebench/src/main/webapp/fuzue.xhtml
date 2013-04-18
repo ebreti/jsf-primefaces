@@ -1,11 +1,339 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Insert title here</title>
-</head>
-<body>
-
-</body>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta author="fmarianoc" />
+	<title>Fuzuê</title>
+</h:head>
+<h:body>
+	<p:panel style="text-align: center;">
+		<f:facet name="header">
+			<h:outputText id="conhecido" value="#{user.nickname} adivinhe"
+              	rendered="#{user.estado == 'CONHECIDO'}" />
+			<h:outputText id="anonimo" value="Adivinhe"
+              	rendered="#{user.estado != 'CONHECIDO'}" />
+			 o número...
+		</f:facet>
+		<f:facet name="footer">
+		    <p:messages id="messages" closable="true" />  
+		</f:facet>
+		<h:form id="adivinhe">
+			<h:commandButton value="#{fuzueController.label(00)}" 
+				disabled="#{fuzueController.disabled(00)}"
+				action="#{fuzueController.click(00)}" />
+			<h:commandButton value="#{fuzueController.label(01)}" 
+				disabled="#{fuzueController.disabled(01)}"
+				action="#{fuzueController.click(01)}" />
+			<h:commandButton value="#{fuzueController.label(02)}" 
+				disabled="#{fuzueController.disabled(02)}"
+				action="#{fuzueController.click(02)}" />
+			<h:commandButton value="#{fuzueController.label(03)}" 
+				disabled="#{fuzueController.disabled(03)}"
+				action="#{fuzueController.click(03)}" />
+			<h:commandButton value="#{fuzueController.label(04)}" 
+				disabled="#{fuzueController.disabled(04)}"
+				action="#{fuzueController.click(04)}" />
+			<h:commandButton value="#{fuzueController.label(05)}" 
+				disabled="#{fuzueController.disabled(05)}"
+				action="#{fuzueController.click(05)}" />
+			<h:commandButton value="#{fuzueController.label(06)}" 
+				disabled="#{fuzueController.disabled(06)}"
+				action="#{fuzueController.click(06)}" />
+			<h:commandButton value="#{fuzueController.label(07)}" 
+				disabled="#{fuzueController.disabled(07)}"
+				action="#{fuzueController.click(07)}" />
+			<h:commandButton value="#{fuzueController.label(08)}" 
+				disabled="#{fuzueController.disabled(08)}"
+				action="#{fuzueController.click(08)}" />
+			<h:commandButton value="#{fuzueController.label(09)}" 
+				disabled="#{fuzueController.disabled(09)}"
+				action="#{fuzueController.click(09)}" />
+			<br />
+			<h:commandButton value="#{fuzueController.label(10)}" 
+				disabled="#{fuzueController.disabled(10)}"
+				action="#{fuzueController.click(10)}" />
+			<h:commandButton value="#{fuzueController.label(11)}" 
+				disabled="#{fuzueController.disabled(11)}"
+				action="#{fuzueController.click(11)}" />
+			<h:commandButton value="#{fuzueController.label(12)}" 
+				disabled="#{fuzueController.disabled(12)}"
+				action="#{fuzueController.click(12)}" />
+			<h:commandButton value="#{fuzueController.label(13)}" 
+				disabled="#{fuzueController.disabled(13)}"
+				action="#{fuzueController.click(13)}" />
+			<h:commandButton value="#{fuzueController.label(14)}" 
+				disabled="#{fuzueController.disabled(14)}"
+				action="#{fuzueController.click(14)}" />
+			<h:commandButton value="#{fuzueController.label(15)}" 
+				disabled="#{fuzueController.disabled(15)}"
+				action="#{fuzueController.click(15)}" />
+			<h:commandButton value="#{fuzueController.label(16)}" 
+				disabled="#{fuzueController.disabled(16)}"
+				action="#{fuzueController.click(16)}" />
+			<h:commandButton value="#{fuzueController.label(17)}" 
+				disabled="#{fuzueController.disabled(17)}"
+				action="#{fuzueController.click(17)}" />
+			<h:commandButton value="#{fuzueController.label(18)}" 
+				disabled="#{fuzueController.disabled(18)}"
+				action="#{fuzueController.click(18)}" />
+			<h:commandButton value="#{fuzueController.label(19)}" 
+				disabled="#{fuzueController.disabled(19)}"
+				action="#{fuzueController.click(19)}" />
+			<br />
+			<h:commandButton value="#{fuzueController.label(20)}" 
+				disabled="#{fuzueController.disabled(20)}"
+				action="#{fuzueController.click(20)}" />
+			<h:commandButton value="#{fuzueController.label(21)}" 
+				disabled="#{fuzueController.disabled(21)}"
+				action="#{fuzueController.click(21)}" />
+			<h:commandButton value="#{fuzueController.label(22)}" 
+				disabled="#{fuzueController.disabled(22)}"
+				action="#{fuzueController.click(22)}" />
+			<h:commandButton value="#{fuzueController.label(23)}" 
+				disabled="#{fuzueController.disabled(23)}"
+				action="#{fuzueController.click(23)}" />
+			<h:commandButton value="#{fuzueController.label(24)}" 
+				disabled="#{fuzueController.disabled(24)}"
+				action="#{fuzueController.click(24)}" />
+			<h:commandButton value="#{fuzueController.label(25)}" 
+				disabled="#{fuzueController.disabled(25)}"
+				action="#{fuzueController.click(25)}" />
+			<h:commandButton value="#{fuzueController.label(26)}" 
+				disabled="#{fuzueController.disabled(26)}"
+				action="#{fuzueController.click(26)}" />
+			<h:commandButton value="#{fuzueController.label(27)}" 
+				disabled="#{fuzueController.disabled(27)}"
+				action="#{fuzueController.click(27)}" />
+			<h:commandButton value="#{fuzueController.label(28)}" 
+				disabled="#{fuzueController.disabled(28)}"
+				action="#{fuzueController.click(28)}" />
+			<h:commandButton value="#{fuzueController.label(29)}" 
+				disabled="#{fuzueController.disabled(29)}"
+				action="#{fuzueController.click(29)}" />
+			<br />
+			<h:commandButton value="#{fuzueController.label(30)}" 
+				disabled="#{fuzueController.disabled(30)}"
+				action="#{fuzueController.click(30)}" />
+			<h:commandButton value="#{fuzueController.label(31)}" 
+				disabled="#{fuzueController.disabled(31)}"
+				action="#{fuzueController.click(31)}" />
+			<h:commandButton value="#{fuzueController.label(32)}" 
+				disabled="#{fuzueController.disabled(32)}"
+				action="#{fuzueController.click(32)}" />
+			<h:commandButton value="#{fuzueController.label(33)}" 
+				disabled="#{fuzueController.disabled(33)}"
+				action="#{fuzueController.click(33)}" />
+			<h:commandButton value="#{fuzueController.label(34)}" 
+				disabled="#{fuzueController.disabled(34)}"
+				action="#{fuzueController.click(34)}" />
+			<h:commandButton value="#{fuzueController.label(35)}" 
+				disabled="#{fuzueController.disabled(35)}"
+				action="#{fuzueController.click(35)}" />
+			<h:commandButton value="#{fuzueController.label(36)}" 
+				disabled="#{fuzueController.disabled(36)}"
+				action="#{fuzueController.click(36)}" />
+			<h:commandButton value="#{fuzueController.label(37)}" 
+				disabled="#{fuzueController.disabled(37)}"
+				action="#{fuzueController.click(37)}" />
+			<h:commandButton value="#{fuzueController.label(38)}" 
+				disabled="#{fuzueController.disabled(38)}"
+				action="#{fuzueController.click(38)}" />
+			<h:commandButton value="#{fuzueController.label(39)}" 
+				disabled="#{fuzueController.disabled(39)}"
+				action="#{fuzueController.click(39)}" />
+			<br />
+			<h:commandButton value="#{fuzueController.label(40)}" 
+				disabled="#{fuzueController.disabled(40)}"
+				action="#{fuzueController.click(40)}" />
+			<h:commandButton value="#{fuzueController.label(41)}" 
+				disabled="#{fuzueController.disabled(41)}"
+				action="#{fuzueController.click(41)}" />
+			<h:commandButton value="#{fuzueController.label(42)}" 
+				disabled="#{fuzueController.disabled(42)}"
+				action="#{fuzueController.click(42)}" />
+			<h:commandButton value="#{fuzueController.label(43)}" 
+				disabled="#{fuzueController.disabled(43)}"
+				action="#{fuzueController.click(43)}" />
+			<h:commandButton value="#{fuzueController.label(44)}" 
+				disabled="#{fuzueController.disabled(44)}"
+				action="#{fuzueController.click(44)}" />
+			<h:commandButton value="#{fuzueController.label(45)}" 
+				disabled="#{fuzueController.disabled(45)}"
+				action="#{fuzueController.click(45)}" />
+			<h:commandButton value="#{fuzueController.label(46)}" 
+				disabled="#{fuzueController.disabled(46)}"
+				action="#{fuzueController.click(46)}" />
+			<h:commandButton value="#{fuzueController.label(47)}" 
+				disabled="#{fuzueController.disabled(47)}"
+				action="#{fuzueController.click(47)}" />
+			<h:commandButton value="#{fuzueController.label(48)}" 
+				disabled="#{fuzueController.disabled(48)}"
+				action="#{fuzueController.click(48)}" />
+			<h:commandButton value="#{fuzueController.label(49)}" 
+				disabled="#{fuzueController.disabled(49)}"
+				action="#{fuzueController.click(49)}" />
+			<br />
+			<h:commandButton value="#{fuzueController.label(50)}" 
+				disabled="#{fuzueController.disabled(50)}"
+				action="#{fuzueController.click(50)}" />
+			<h:commandButton value="#{fuzueController.label(51)}" 
+				disabled="#{fuzueController.disabled(51)}"
+				action="#{fuzueController.click(51)}" />
+			<h:commandButton value="#{fuzueController.label(52)}" 
+				disabled="#{fuzueController.disabled(52)}"
+				action="#{fuzueController.click(52)}" />
+			<h:commandButton value="#{fuzueController.label(53)}" 
+				disabled="#{fuzueController.disabled(53)}"
+				action="#{fuzueController.click(53)}" />
+			<h:commandButton value="#{fuzueController.label(54)}" 
+				disabled="#{fuzueController.disabled(54)}"
+				action="#{fuzueController.click(54)}" />
+			<h:commandButton value="#{fuzueController.label(55)}" 
+				disabled="#{fuzueController.disabled(55)}"
+				action="#{fuzueController.click(55)}" />
+			<h:commandButton value="#{fuzueController.label(56)}" 
+				disabled="#{fuzueController.disabled(56)}"
+				action="#{fuzueController.click(56)}" />
+			<h:commandButton value="#{fuzueController.label(57)}" 
+				disabled="#{fuzueController.disabled(57)}"
+				action="#{fuzueController.click(57)}" />
+			<h:commandButton value="#{fuzueController.label(58)}" 
+				disabled="#{fuzueController.disabled(58)}"
+				action="#{fuzueController.click(58)}" />
+			<h:commandButton value="#{fuzueController.label(59)}" 
+				disabled="#{fuzueController.disabled(59)}"
+				action="#{fuzueController.click(59)}" />
+			<br />
+			<h:commandButton value="#{fuzueController.label(60)}" 
+				disabled="#{fuzueController.disabled(60)}"
+				action="#{fuzueController.click(60)}" />
+			<h:commandButton value="#{fuzueController.label(61)}" 
+				disabled="#{fuzueController.disabled(61)}"
+				action="#{fuzueController.click(61)}" />
+			<h:commandButton value="#{fuzueController.label(62)}" 
+				disabled="#{fuzueController.disabled(62)}"
+				action="#{fuzueController.click(62)}" />
+			<h:commandButton value="#{fuzueController.label(63)}" 
+				disabled="#{fuzueController.disabled(63)}"
+				action="#{fuzueController.click(63)}" />
+			<h:commandButton value="#{fuzueController.label(64)}" 
+				disabled="#{fuzueController.disabled(64)}"
+				action="#{fuzueController.click(64)}" />
+			<h:commandButton value="#{fuzueController.label(65)}" 
+				disabled="#{fuzueController.disabled(65)}"
+				action="#{fuzueController.click(65)}" />
+			<h:commandButton value="#{fuzueController.label(66)}" 
+				disabled="#{fuzueController.disabled(66)}"
+				action="#{fuzueController.click(66)}" />
+			<h:commandButton value="#{fuzueController.label(67)}" 
+				disabled="#{fuzueController.disabled(67)}"
+				action="#{fuzueController.click(67)}" />
+			<h:commandButton value="#{fuzueController.label(68)}" 
+				disabled="#{fuzueController.disabled(68)}"
+				action="#{fuzueController.click(68)}" />
+			<h:commandButton value="#{fuzueController.label(69)}" 
+				disabled="#{fuzueController.disabled(69)}"
+				action="#{fuzueController.click(69)}" />
+			<br />
+			<h:commandButton value="#{fuzueController.label(70)}" 
+				disabled="#{fuzueController.disabled(70)}"
+				action="#{fuzueController.click(70)}" />
+			<h:commandButton value="#{fuzueController.label(71)}" 
+				disabled="#{fuzueController.disabled(71)}"
+				action="#{fuzueController.click(71)}" />
+			<h:commandButton value="#{fuzueController.label(72)}" 
+				disabled="#{fuzueController.disabled(72)}"
+				action="#{fuzueController.click(72)}" />
+			<h:commandButton value="#{fuzueController.label(73)}" 
+				disabled="#{fuzueController.disabled(73)}"
+				action="#{fuzueController.click(73)}" />
+			<h:commandButton value="#{fuzueController.label(74)}" 
+				disabled="#{fuzueController.disabled(74)}"
+				action="#{fuzueController.click(74)}" />
+			<h:commandButton value="#{fuzueController.label(75)}" 
+				disabled="#{fuzueController.disabled(75)}"
+				action="#{fuzueController.click(75)}" />
+			<h:commandButton value="#{fuzueController.label(76)}" 
+				disabled="#{fuzueController.disabled(76)}"
+				action="#{fuzueController.click(76)}" />
+			<h:commandButton value="#{fuzueController.label(77)}" 
+				disabled="#{fuzueController.disabled(77)}"
+				action="#{fuzueController.click(77)}" />
+			<h:commandButton value="#{fuzueController.label(78)}" 
+				disabled="#{fuzueController.disabled(78)}"
+				action="#{fuzueController.click(78)}" />
+			<h:commandButton value="#{fuzueController.label(79)}" 
+				disabled="#{fuzueController.disabled(79)}"
+				action="#{fuzueController.click(79)}" />
+			<br />
+			<h:commandButton value="#{fuzueController.label(80)}" 
+				disabled="#{fuzueController.disabled(80)}"
+				action="#{fuzueController.click(80)}" />
+			<h:commandButton value="#{fuzueController.label(81)}" 
+				disabled="#{fuzueController.disabled(81)}"
+				action="#{fuzueController.click(81)}" />
+			<h:commandButton value="#{fuzueController.label(82)}" 
+				disabled="#{fuzueController.disabled(82)}"
+				action="#{fuzueController.click(82)}" />
+			<h:commandButton value="#{fuzueController.label(83)}" 
+				disabled="#{fuzueController.disabled(83)}"
+				action="#{fuzueController.click(83)}" />
+			<h:commandButton value="#{fuzueController.label(84)}" 
+				disabled="#{fuzueController.disabled(84)}"
+				action="#{fuzueController.click(84)}" />
+			<h:commandButton value="#{fuzueController.label(85)}" 
+				disabled="#{fuzueController.disabled(85)}"
+				action="#{fuzueController.click(85)}" />
+			<h:commandButton value="#{fuzueController.label(86)}" 
+				disabled="#{fuzueController.disabled(86)}"
+				action="#{fuzueController.click(86)}" />
+			<h:commandButton value="#{fuzueController.label(87)}" 
+				disabled="#{fuzueController.disabled(87)}"
+				action="#{fuzueController.click(87)}" />
+			<h:commandButton value="#{fuzueController.label(88)}" 
+				disabled="#{fuzueController.disabled(88)}"
+				action="#{fuzueController.click(88)}" />
+			<h:commandButton value="#{fuzueController.label(89)}" 
+				disabled="#{fuzueController.disabled(89)}"
+				action="#{fuzueController.click(89)}" />
+			<br />
+			<h:commandButton value="#{fuzueController.label(90)}" 
+				disabled="#{fuzueController.disabled(90)}"
+				action="#{fuzueController.click(90)}" />
+			<h:commandButton value="#{fuzueController.label(91)}" 
+				disabled="#{fuzueController.disabled(91)}"
+				action="#{fuzueController.click(91)}" />
+			<h:commandButton value="#{fuzueController.label(92)}" 
+				disabled="#{fuzueController.disabled(92)}"
+				action="#{fuzueController.click(92)}" />
+			<h:commandButton value="#{fuzueController.label(93)}" 
+				disabled="#{fuzueController.disabled(93)}"
+				action="#{fuzueController.click(93)}" />
+			<h:commandButton value="#{fuzueController.label(94)}" 
+				disabled="#{fuzueController.disabled(94)}"
+				action="#{fuzueController.click(94)}" />
+			<h:commandButton value="#{fuzueController.label(95)}" 
+				disabled="#{fuzueController.disabled(95)}"
+				action="#{fuzueController.click(95)}" />
+			<h:commandButton value="#{fuzueController.label(96)}" 
+				disabled="#{fuzueController.disabled(96)}"
+				action="#{fuzueController.click(96)}" />
+			<h:commandButton value="#{fuzueController.label(97)}" 
+				disabled="#{fuzueController.disabled(97)}"
+				action="#{fuzueController.click(97)}" />
+			<h:commandButton value="#{fuzueController.label(98)}" 
+				disabled="#{fuzueController.disabled(98)}"
+				action="#{fuzueController.click(98)}" />
+			<h:commandButton value="#{fuzueController.label(99)}" 
+				disabled="#{fuzueController.disabled(99)}"
+				action="#{fuzueController.click(99)}" />
+		</h:form>
+	</p:panel>
+	<br style="clear: both" />
+</h:body>
 </html>
