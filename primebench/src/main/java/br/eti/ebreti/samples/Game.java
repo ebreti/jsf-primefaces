@@ -22,14 +22,13 @@ import java.util.Calendar;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.SessionScoped;
 import javax.enterprise.inject.Instance;
+import javax.enterprise.inject.Model;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
-import javax.inject.Named;
 
 import org.primefaces.model.chart.MeterGaugeChartModel;
 
@@ -56,8 +55,7 @@ import org.primefaces.model.chart.MeterGaugeChartModel;
  * @contributor fmarianoc
  *
  */
-@Named
-@SessionScoped
+@Model
 public class Game implements Serializable {
 
 	private static final long serialVersionUID = -4922390286153874072L;
@@ -65,7 +63,7 @@ public class Game implements Serializable {
 	/**
 	 * Max number of tries.
 	 */
-	static final int CHANCES = 10;
+	static final int NUM_TRIES = 10;
 
 	/**
 	 * The game state.
@@ -88,7 +86,7 @@ public class Game implements Serializable {
 	 * The number that the user needs to guess.
 	 */
 	private int number;
-
+	
 	/**
 	 * The users latest guess.
 	 */
@@ -123,8 +121,8 @@ public class Game implements Serializable {
 	@Inject
 	@Random
 	Instance<Integer> randomNumber;
-
-    private MeterGaugeChartModel model;
+ 
+	private MeterGaugeChartModel model;
 
 	public Game() {
 		this.pontos = 0;
@@ -181,19 +179,19 @@ public class Game implements Serializable {
 
 	private FacesMessage getWinnerMessage() {
 		FacesMessage winnerMessage;
-		if (this.remainingGuesses == Game.CHANCES) {
+		if (this.remainingGuesses == Game.NUM_TRIES) {
 			winnerMessage = new FacesMessage("Uau! De prima! Consegue repetir?");
 			this.pontos += 10000;
 		} else if (this.remainingGuesses == 1) {
 			winnerMessage = new FacesMessage("Por pouco! Acertou na última. Treine mais...");
-		} else if (this.remainingGuesses < Game.CHANCES / 3) {
+		} else if (this.remainingGuesses < Game.NUM_TRIES / 3) {
 			winnerMessage = new FacesMessage("Ufa! Acertou nas últimas!");
-		} else if (this.remainingGuesses > 2 * (Game.CHANCES / 3)) {
+		} else if (this.remainingGuesses > 2 * (Game.NUM_TRIES / 3)) {
 			winnerMessage = new FacesMessage("Boa! Está pegando a manha...");
 			this.pontos += 2000;
 		} else {
 			winnerMessage = new FacesMessage("Parabéns! Você acertou na "
-					+ (Game.CHANCES + 1 - this.remainingGuesses) + "ª tentativa.");
+					+ (Game.NUM_TRIES + 1 - this.remainingGuesses) + "ª tentativa.");
 		}
 		return winnerMessage;
 	}
@@ -209,7 +207,7 @@ public class Game implements Serializable {
 		this.estado = GameState.PRONTO;
 		this.smallest = 0;
 		this.guess = 0;
-		this.remainingGuesses = Game.CHANCES;
+		this.remainingGuesses = Game.NUM_TRIES;
 		this.biggest = maxNumber;
 		this.number = randomNumber.get();
 		this.partidas++;
@@ -319,8 +317,8 @@ public class Game implements Serializable {
 	@SuppressWarnings("serial")
 	public MeterGaugeChartModel getModel() {
         List<Number> intervals = new ArrayList<Number>(){{
-            add(35);
-            add(85);
+            add(25);
+            add(75);
             add(100);
         }};
         List<Number> ticks = new ArrayList<Number>(){{

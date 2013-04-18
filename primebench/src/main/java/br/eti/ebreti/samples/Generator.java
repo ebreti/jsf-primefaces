@@ -24,7 +24,7 @@ import javax.enterprise.inject.Produces;
 
 /**
  * <p>
- * Random number generator.
+ * Game environment generator.
  * </p>
  * 
  * <p>
@@ -40,6 +40,7 @@ import javax.enterprise.inject.Produces;
  * </p>
  * 
  * @author Pete Muir
+ * @colaborator fmarianoc
  * 
  */
 @SuppressWarnings("serial")
@@ -48,7 +49,7 @@ public class Generator implements Serializable {
 
    private java.util.Random random = new java.util.Random(System.currentTimeMillis());
 
-   private int maxNumber = 100;
+   private int maxNumber = 99;
 
    java.util.Random getRandom() {
       return random;
@@ -57,8 +58,8 @@ public class Generator implements Serializable {
    @Produces
    @Random
    int next() {
-      // a number between 1 and 100
-      return getRandom().nextInt(maxNumber - 1) + 1;
+      // a number between 0 and 99
+      return getRandom().nextInt(maxNumber);
    }
 
    @Produces
@@ -66,4 +67,5 @@ public class Generator implements Serializable {
    int getMaxNumber() {
       return maxNumber;
    }
+ 
 }

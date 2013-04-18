@@ -35,7 +35,7 @@
 			pensando
 			<h:outputText id="unico" value="em apenas um único número: #{game.smallest}."
               	rendered="#{game.smallest == game.biggest}" />
-			<h:outputText id="varios" value="em um número entre #{game.smallest}	e #{game.biggest}."
+			<h:outputText id="varios" value="em um número entre #{game.smallest} e #{game.biggest}."
               	rendered="#{game.smallest != game.biggest}" />
 			<p:separator />
 			<!-- Input box for the users guess, plus a button to submit, and reset -->
@@ -66,12 +66,12 @@
 			Você está com [#{game.pontos}] pontos.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	    	<h:commandButton action="home" immediate="true" value="Menu" />
 			<p:separator />
+            <p:meterGaugeChart value="#{game.model}" intervalOuterRadius="133" 
+            	label="Desempenho" labelHeightAdjust="110" style="height: 230px" />
+			<br />
 			Média: [#{game.mediaFormatada}] &nbsp;&nbsp;&nbsp;
 			Tentativas: [#{game.escolhas}] &nbsp;&nbsp;&nbsp; 
 			Jogos: [#{game.partidas}]
-			<br />
-            <p:meterGaugeChart id="simple" value="#{game.model}" style="height:250px" label="Desempenho"  />
-
 		</h:form>
 	</p:panel>
 	<br style="clear: both" />
