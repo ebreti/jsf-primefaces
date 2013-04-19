@@ -17,11 +17,46 @@
 	<!-- Esta solução é absurdamente dependente da língua portuguesa. -->
 	<p:panel style="text-align: center;">
 		<f:facet name="header">
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<h:outputText id="conhecido" value="#{user.nickname} adivinhe"
               	rendered="#{user.estado == 'CONHECIDO'}" />
 			<h:outputText id="anonimo" value="Adivinhe"
               	rendered="#{user.estado != 'CONHECIDO'}" />
-			 o número...
+			o número...
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<h:outputText id="help" value="?" style="margin-right: 5px; text-color: LavenderBlush" />
+				<p:tooltip for="help" showEffect="drop" hideEffect="drop"
+					style="background: LavenderBlush; align: center">
+					O objetivo do jogo é adivinhar um número sorteado entre 0 e 99.
+					<br />
+					Você tem direito a 10 tentativas válidas.
+					<br />
+					Quando você faz uma escolha, se não é o número sorteado,
+					<br />
+					indico se sua próxima tentativa deve ser um número maior 
+					<br />
+					ou menor que a tentativa atual. Também informo quais são
+					<br />
+					os novos limites disponíveis e não considero como válidas
+					<br />
+					as tentativas fora deste intervalo.
+					<br />
+					+ Você ganha mais pontos se jogar mais rápido.
+					<br />
+					+ Você também ganha um número maior de pontos quando faz uma
+					<br />
+					escolha correta e os limites estão afastados.
+					<br />
+					+ Por último, você também ganha mais pontos quando acerta com
+					<br />
+					um menor número de tentativas - este critério isolado é exibido
+					<br />
+					no mostrador "Desempenho".
+					<br />
+					A Média exibida é o resultado da divisão do número de pontos
+					<br />
+					pelo número de tentativas.
+				</p:tooltip>
 		</f:facet>
 		<h:form id="adivinhe">
 			<!-- Instructions for the user -->
@@ -32,8 +67,19 @@
 			pensando
 			<h:outputText id="unico" value="em apenas um único número: #{game.smallest}."
               	rendered="#{game.smallest == game.biggest}" />
+				<p:tooltip for="unico" rendered="#{game.estado == 'PRONTO'}"
+					showEffect="bounce" hideEffect="drop"
+					style="background: Tomato; margin-right: 40px; text-align: right">
+					Agora vai!
+				</p:tooltip>
 			<h:outputText id="varios" value="em um número entre #{game.smallest} e #{game.biggest}."
               	rendered="#{game.smallest != game.biggest}" />
+				<p:tooltip for="varios" rendered="#{game.estado == 'PRONTO'}"
+					showEffect="bounce" hideEffect="drop"
+					style="background: LavenderBlush; margin-right: 40px; text-align: right">
+					Estes são os limites.
+					<br />Escolha um número.
+				</p:tooltip>
 			<p:separator />
 			<!-- Input box for the users guess, plus a button to submit, and reset -->
 			<!-- These are bound using EL to our CDI beans -->
@@ -42,7 +88,7 @@
 				size="3" disabled="#{game.estado == 'TERMINADO'}"
 				validator="#{game.validateNumberRange}" />
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<h:commandButton id="Escolha" value="Escolha"
+			<h:commandButton id="Tentar" value="Tentar"
 				action="#{game.check}" disabled="#{game.estado == 'TERMINADO'}" />
 			<p:separator />
 		    <p:messages id="messages" closable="true" />  
