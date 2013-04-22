@@ -31,6 +31,8 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.primefaces.model.chart.CartesianChartModel;
+import org.primefaces.model.chart.ChartSeries;
 import org.primefaces.model.chart.MeterGaugeChartModel;
 
 /**
@@ -76,7 +78,9 @@ public class Game implements Serializable {
 	 * Scores.
 	 */
 	private int pontos;
+	private int pontosNestaPartida;
 	private int escolhas;
+	private int escolhasNestaPartida;
 	private int partidas;
 
 	/**
@@ -124,12 +128,17 @@ public class Game implements Serializable {
 	@Random
 	Instance<Integer> randomNumber;
  
-	private MeterGaugeChartModel model;
+	private MeterGaugeChartModel gaugeModel;
+
+    private ChartSeries pontosPorPartida = new ChartSeries();
+    private ChartSeries performance = new ChartSeries();
 
 	public Game() {
 		this.pontos = 0;
 		this.escolhas = 0;
 		this.partidas = 0;
+        this.pontosPorPartida.setLabel("Pontos");
+        this.performance.setLabel("Desempenho");
 	}
 
 	/**
@@ -145,15 +154,15 @@ public class Game implements Serializable {
 		if (guess == number) {
 			FacesContext.getCurrentInstance().addMessage(null, getWinnerMessage());
 			this.pontos += premiaPrecisao();
-			this.estado = GameState.TERMINADO;
 			this.remainingGuesses--;
+			this.terminaPartida();
 			return;
 		}
 		this.remainingGuesses--;
 		if (this.remainingGuesses <= 0) {
 			FacesMessage finalMessage = new FacesMessage("Que pena, acabaram suas chances... Tente de novo!");
 			FacesContext.getCurrentInstance().addMessage(null, finalMessage);
-			this.estado = GameState.TERMINADO;
+			this.terminaPartida();
 			return;
 		}
 		if (this.guess > this.number) {
@@ -168,29 +177,29 @@ public class Game implements Serializable {
 
 	private long premiaRapidez(long delta) {
 		if (delta <= 3500L) {
-			return (5000L - delta);
+			return (long) ((5000L - delta) / 3);
 		} else if (delta <= 6500L) {
-			return (long)(800L + (7000L - delta) * .4);
+			return (long)((800L + (7000L - delta) * .4) / 3);
 		}
-		return (long)((delta % 1000L) * .8);
+		return (long)(((delta % 1000L) * .8) / 3);
 	}
 
 	private long premiaPrecisao() {
-		return this.remainingGuesses * (this.biggest - this.smallest + 1) * 30;
+		return this.remainingGuesses * (this.biggest - this.smallest + 1) * 10;
 	}
 
 	private FacesMessage getWinnerMessage() {
 		FacesMessage winnerMessage;
 		if (this.remainingGuesses == Game.NUM_TRIES) {
 			winnerMessage = new FacesMessage("Uau! De prima! Consegue repetir?");
-			this.pontos += 10000;
+			this.pontos += 2000;
 		} else if (this.remainingGuesses == 1) {
 			winnerMessage = new FacesMessage("Por pouco! Acertou na última. Treine mais...");
 		} else if (this.remainingGuesses < Game.NUM_TRIES / 3) {
 			winnerMessage = new FacesMessage("Ufa! Acertou nas últimas!");
 		} else if (this.remainingGuesses > 2 * (Game.NUM_TRIES / 3)) {
 			winnerMessage = new FacesMessage("Boa! Está pegando a manha...");
-			this.pontos += 2000;
+			this.pontos += 700;
 		} else {
 			winnerMessage = new FacesMessage("Parabéns! Você acertou na "
 					+ (Game.NUM_TRIES + 1 - this.remainingGuesses) + "ª tentativa.");
@@ -214,6 +223,18 @@ public class Game implements Serializable {
 		this.number = randomNumber.get();
 		this.partidas++;
 		this.t1 = Calendar.getInstance();
+		this.pontosNestaPartida = -this.pontos;
+		this.escolhasNestaPartida = -this.escolhas;
+	}
+
+	public void terminaPartida() {
+		this.estado = GameState.TERMINADO;
+		this.pontosNestaPartida += this.pontos;
+		this.escolhasNestaPartida += this.escolhas;
+		this.escolhasNestaPartida = 11 - this.escolhasNestaPartida;
+		this.escolhasNestaPartida *= (NUM_TRIES * 10);
+        this.pontosPorPartida.set(String.valueOf(this.partidas), this.pontosNestaPartida);
+        this.performance.set(String.valueOf(this.partidas), this.escolhasNestaPartida);
 	}
 
 	/**
@@ -309,30 +330,36 @@ public class Game implements Serializable {
 
 	public Number getDesempenho() {
 		if (this.escolhas == 0) {
-			return 100;
+			return NUM_TRIES * 100;
 		} else {
-			Double desempenho = (double) (110 - ((10 * this.escolhas) / this.partidas));
+			Double desempenho = (double) (NUM_TRIES * (100 - ((10 * (this.escolhas - 1)) / this.partidas)));
 			return desempenho.intValue();
 		}
 	}
 
 	@SuppressWarnings("serial")
-	public MeterGaugeChartModel getModel() {
+	public MeterGaugeChartModel getGaugeModel() {
         List<Number> intervals = new ArrayList<Number>(){{
-            add(25);
-            add(75);
-            add(100);
+            add(250);
+            add(750);
+            add(1000);
         }};
         List<Number> ticks = new ArrayList<Number>(){{
             add(0);
-            add(20);
-            add(40);
-            add(60);
-            add(80);
-            add(100);
+            add(200);
+            add(400);
+            add(600);
+            add(800);
+            add(1000);
         }};
-        this.model = new MeterGaugeChartModel(this.getDesempenho(), intervals, ticks);
-		return model;
+        this.gaugeModel = new MeterGaugeChartModel(this.getDesempenho(), intervals, ticks);
+		return gaugeModel;
 	}
 
+	public CartesianChartModel getChartModel() {
+	    CartesianChartModel chartModel = new CartesianChartModel();
+        chartModel.addSeries(this.pontosPorPartida);
+        chartModel.addSeries(this.performance);
+		return chartModel;
+	}
 }

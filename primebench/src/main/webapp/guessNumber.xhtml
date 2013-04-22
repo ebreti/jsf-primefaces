@@ -24,39 +24,27 @@
               	rendered="#{user.estado != 'CONHECIDO'}" />
 			o número...
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<h:outputText id="help" value="?" style="margin-right: 5px; text-color: LavenderBlush" />
-				<p:tooltip for="help" showEffect="drop" hideEffect="drop"
-					style="background: LavenderBlush; align: center">
+			<h:commandButton id="help" value="?" onclick="dlg.show()" />
+				<p:tooltip for="help" showEffect="bounce" hideEffect="drop"
+					style="background: LavenderBlush">
+					Instruções
+				</p:tooltip>
+				<p:dialog for="help" showEffect="drop" hideEffect="drop" position="center,bottom"
+					style="background: LavenderBlush" closable="true" widgetVar="dlg"
+					modal="true" closeOnEscape="true">
 					O objetivo do jogo é adivinhar um número sorteado entre 0 e 99.
 					<br />
 					Você tem direito a 10 tentativas válidas.
 					<br />
-					Quando você faz uma escolha, se não é o número sorteado,
 					<br />
-					indico se sua próxima tentativa deve ser um número maior 
-					<br />
-					ou menor que a tentativa atual. Também informo quais são
-					<br />
-					os novos limites disponíveis e não considero como válidas
-					<br />
-					as tentativas fora deste intervalo.
-					<br />
-					+ Você ganha mais pontos se jogar mais rápido.
-					<br />
-					+ Você também ganha um número maior de pontos quando faz uma
-					<br />
-					escolha correta e os limites estão afastados.
-					<br />
-					+ Por último, você também ganha mais pontos quando acerta com
-					<br />
-					um menor número de tentativas - este critério isolado é exibido
-					<br />
-					no mostrador "Desempenho".
-					<br />
-					A Média exibida é o resultado da divisão do número de pontos
-					<br />
-					pelo número de tentativas.
-				</p:tooltip>
+					Quando você faz uma escolha, se não é o número sorteado, indico se sua próxima tentativa deve ser um número maior ou menor que a tentativa atual. Também informo quais são os novos limites disponíveis e não considero como válidas as tentativas fora deste intervalo.
+					<ul>
+						<li>Você ganha mais pontos se jogar mais rápido.</li>
+						<li>Você ganha um número maior de pontos quando faz uma escolha correta e os limites estão afastados.</li>
+						<li>Por último, você também ganha mais pontos quando acerta com um menor número de tentativas - este critério isolado é exibido no mostrador "Desempenho".</li>
+					</ul>
+					A Média exibida é o resultado da divisão do número de pontos pelo número de tentativas.
+				</p:dialog>
 		</f:facet>
 		<h:form id="adivinhe">
 			<!-- Instructions for the user -->
@@ -92,8 +80,11 @@
 				action="#{game.check}" disabled="#{game.estado == 'TERMINADO'}" />
 			<p:separator />
 		    <p:messages id="messages" closable="true" />  
-            <p:meterGaugeChart value="#{game.model}" intervalOuterRadius="133" 
+            <p:meterGaugeChart value="#{game.gaugeModel}" intervalOuterRadius="133" 
             	label="Desempenho" labelHeightAdjust="110" style="height: 230px" />
+            <p:barChart value="#{game.chartModel}" style="height:230px" 
+            	title="Pontos e Desempenho por Partida" legendPosition="n"
+            	rendered="#{game.estado == 'TERMINADO'}" />
 			<p:separator />
 			Você 
 			<h:outputText id="tinha" value="tinha"
