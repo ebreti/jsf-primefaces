@@ -177,11 +177,11 @@ public class Game implements Serializable {
 
 	private long premiaRapidez(long delta) {
 		if (delta <= 3500L) {
-			return (long) ((5000L - delta) / 3);
+			return (long) ((5000L - delta) / 40);
 		} else if (delta <= 6500L) {
-			return (long)((800L + (7000L - delta) * .4) / 3);
+			return (long)((800L + (7000L - delta) * .4) / 40);
 		}
-		return (long)(((delta % 1000L) * .8) / 3);
+		return (long)(((delta % 1000L) * .8) / 40);
 	}
 
 	private long premiaPrecisao() {
@@ -193,16 +193,19 @@ public class Game implements Serializable {
 		if (this.remainingGuesses == Game.NUM_TRIES) {
 			winnerMessage = new FacesMessage("Uau! De prima! Consegue repetir?");
 			this.pontos += 2000;
-		} else if (this.remainingGuesses == 1) {
-			winnerMessage = new FacesMessage("Por pouco! Acertou na última. Treine mais...");
-		} else if (this.remainingGuesses < Game.NUM_TRIES / 3) {
-			winnerMessage = new FacesMessage("Ufa! Acertou nas últimas!");
-		} else if (this.remainingGuesses > 2 * (Game.NUM_TRIES / 3)) {
-			winnerMessage = new FacesMessage("Boa! Está pegando a manha...");
-			this.pontos += 700;
 		} else {
-			winnerMessage = new FacesMessage("Parabéns! Você acertou na "
-					+ (Game.NUM_TRIES + 1 - this.remainingGuesses) + "ª tentativa.");
+			this.pontos += 100 * (10 - this.remainingGuesses);
+			if (this.remainingGuesses == 1) {
+				winnerMessage = new FacesMessage("Por pouco! Acertou na última. Treine mais...");
+			} else if (this.remainingGuesses < Game.NUM_TRIES / 3) {
+				winnerMessage = new FacesMessage("Ufa! Acertou nas últimas!");
+			} else if (this.remainingGuesses > 2 * (Game.NUM_TRIES / 3)) {
+				winnerMessage = new FacesMessage("Boa! Está pegando a manha...");
+				this.pontos += 300;
+			} else {
+				winnerMessage = new FacesMessage("Parabéns! Você acertou na "
+						+ (Game.NUM_TRIES + 1 - this.remainingGuesses) + "ª tentativa.");
+			}
 		}
 		return winnerMessage;
 	}
