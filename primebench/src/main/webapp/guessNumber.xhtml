@@ -34,11 +34,13 @@
 					modal="true" closeOnEscape="true">
 					O objetivo do jogo é adivinhar um número sorteado entre 0 e 99.
 					<br />
-					Você tem direito a 10 tentativas válidas.
+					Você tem direito a 10 tentativas válidas. Considero como válidas as tentativas numéricas dentro do intervalo informado.
 					<br />
-					<br />
-					Quando você faz uma escolha, se não é o número sorteado, indico se sua próxima tentativa deve ser um número maior ou menor que a tentativa atual. Também informo quais são os novos limites disponíveis e não considero como válidas as tentativas fora deste intervalo.
-					<ul>
+					<ul>Quando você faz uma escolha:
+						<li>se é o número sorteado, mostro o gráfico "Pontos e Desempenho por Partida" e aguardo.</li>
+						<li>se não é o número sorteado, indico se sua próxima tentativa deve ser um número maior ou menor que a tentativa atual, além de informar quais são os novos limites disponíveis.</li>
+					</ul>
+					<ul>Contagem dos Pontos:
 						<li>Você ganha mais pontos se jogar mais rápido.</li>
 						<li>Você ganha um número maior de pontos quando faz uma escolha correta e os limites estão afastados.</li>
 						<li>Por último, você também ganha mais pontos quando acerta com um menor número de tentativas - este critério isolado é exibido no mostrador "Desempenho".</li>
@@ -81,9 +83,11 @@
 			<p:separator />
 		    <p:messages id="messages" closable="true" />  
             <p:meterGaugeChart value="#{game.gaugeModel}" intervalOuterRadius="133" 
-            	label="Desempenho" labelHeightAdjust="110" style="height: 230px" />
+            	label="Desempenho" labelHeightAdjust="110" style="height: 230px" 
+            	seriesColors="FF6347, 7CFC00, AFEEEE" />
             <p:barChart value="#{game.chartModel}" style="height:230px" 
-            	title="Pontos e Desempenho por Partida" legendPosition="n"
+            	title="Pontos e Desempenho por Partida" legendPosition="n" 
+            	stacked="true" seriesColors="7CFC00, AFEEEE" 
             	rendered="#{game.estado == 'TERMINADO'}" />
 			<p:separator />
 			Você 

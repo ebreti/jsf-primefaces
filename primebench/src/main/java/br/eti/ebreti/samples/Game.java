@@ -358,8 +358,8 @@ public class Game implements Serializable {
 
 	public CartesianChartModel getChartModel() {
 	    CartesianChartModel chartModel = new CartesianChartModel();
-        chartModel.addSeries(this.pontosPorPartida);
         chartModel.addSeries(this.performance);
+        chartModel.addSeries(this.pontosPorPartida);
 		return chartModel;
 	}
 }
