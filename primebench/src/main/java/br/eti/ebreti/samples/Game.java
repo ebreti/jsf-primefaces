@@ -335,7 +335,7 @@ public class Game implements Serializable {
 		if (this.escolhas == 0) {
 			return NUM_TRIES * 100;
 		} else {
-			Double desempenho = (double) (NUM_TRIES * (100 - ((10 * (this.escolhas - 1)) / this.partidas)));
+			Double desempenho = (double) 100 * (((NUM_TRIES + 1) * this.partidas) - this.escolhas) / this.partidas;
 			return desempenho.intValue();
 		}
 	}
@@ -343,9 +343,9 @@ public class Game implements Serializable {
 	@SuppressWarnings("serial")
 	public MeterGaugeChartModel getGaugeModel() {
         List<Number> intervals = new ArrayList<Number>(){{
-            add(250);
-            add(750);
-            add(1000);
+            add(ColorPattern.LOW.getLimit());
+            add(ColorPattern.MEDIUM.getLimit());
+            add(ColorPattern.HIGH.getLimit());
         }};
         List<Number> ticks = new ArrayList<Number>(){{
             add(0);
@@ -365,4 +365,21 @@ public class Game implements Serializable {
         chartModel.addSeries(this.pontosPorPartida);
 		return chartModel;
 	}
+
+	public String getGaugeRainbow() {
+		return ColorPattern.LOW.getGaugeColor() + ", " +
+				ColorPattern.MEDIUM.getGaugeColor() + ", " +
+				ColorPattern.HIGH.getGaugeColor();
+	}
+
+	public ColorPattern getStickColors() {
+		if(this.getDesempenho().intValue() <= ColorPattern.LOW.getLimit()) {
+			return ColorPattern.LOW;
+		} else if(this.getDesempenho().intValue() <= ColorPattern.MEDIUM.getLimit()) {
+			return ColorPattern.MEDIUM;
+		} else {
+			return ColorPattern.HIGH;
+		}
+	}
+
 }

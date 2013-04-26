@@ -34,7 +34,7 @@
 					modal="true" closeOnEscape="true">
 					O objetivo do jogo é adivinhar um número sorteado entre 0 e 99.
 					<br />
-					Você tem direito a 10 tentativas válidas. Considero como válidas as tentativas numéricas dentro do intervalo informado.
+					Você tem direito a 10 tentativas válidas por partida. Considero como válidas as tentativas numéricas dentro do intervalo informado.
 					<br />
 					<ul>Quando você faz uma escolha:
 						<li>se é o número sorteado ou se você já usou todas as chances, informo o resultado, mostro o gráfico "Pontos e Desempenho por Partida" e aguardo.</li>
@@ -43,9 +43,11 @@
 					<ul>Contagem dos Pontos:
 						<li>Você ganha mais pontos se jogar mais rápido.</li>
 						<li>Você ganha um número maior de pontos quando faz uma escolha correta e os limites estão afastados.</li>
-						<li>Por último, você também ganha mais pontos quando acerta com um menor número de tentativas - este critério isolado é exibido no mostrador "Desempenho".</li>
+						<li>Por último, você também ganha mais pontos quando termina uma partida com um menor número de tentativas - este critério isolado é exibido no mostrador "Desempenho".</li>
 					</ul>
 					A Média exibida é o resultado da divisão do número de pontos pelo número de tentativas.
+					<br />
+					O relógio só anda enquanto espero sua escolha (isto é, desde o momento que mando a tela com o botão "Tentar" habilitado até receber sua resposta). 
 				</p:dialog>
 		</f:facet>
 		<h:form id="adivinhe">
@@ -84,11 +86,11 @@
 		    <p:messages id="messages" closable="true" />  
             <p:meterGaugeChart value="#{game.gaugeModel}" intervalOuterRadius="133" 
             	label="Desempenho" labelHeightAdjust="110" style="height: 230px" 
-            	seriesColors="FF6347, 7CFC00, AFEEEE" />
+            	seriesColors="#{game.gaugeRainbow}" />
             <p:barChart value="#{game.chartModel}" style="height:230px" 
             	title="Pontos e Desempenho por Partida" legendPosition="n" 
-            	stacked="true" seriesColors="7CFC00, AFEEEE" 
-            	rendered="#{game.estado == 'TERMINADO'}" />
+            	stacked="true" seriesColors="#{game.stickColors.stackedColors}"  
+            	zoom="true" rendered="#{game.estado == 'TERMINADO'}" />
 			<p:separator />
 			Você 
 			<h:outputText id="tinha" value="tinha"
@@ -110,7 +112,7 @@
 			<p:separator />
 			Média: [#{game.mediaFormatada}] &nbsp;&nbsp;&nbsp;
 			Tentativas: [#{game.escolhas}] &nbsp;&nbsp;&nbsp; 
-			Jogos: [#{game.partidas}]
+			Partidas: [#{game.partidas}]
 		</h:form>
 	</p:panel>
 	<br style="clear: both" />
