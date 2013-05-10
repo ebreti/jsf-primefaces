@@ -1,9 +1,9 @@
 package br.eti.ebreti.samples;
 
 public enum ColorPattern {
-	LOW(250, "FF6347", "FF6347, AFEEEE"),
-	MEDIUM(750, "7CFC00", "7CFC00, AFEEEE"),
-	HIGH(1000, "AFEEEE", "AFEEEE, 7CFC00");
+	LOW(250, "FF6347", "FF6347, BBC6D0"),
+	MEDIUM(750, "7CFC00", "7CFC00, BBC6D0"),
+	HIGH(1000, "AFEEEE", "AFEEEE, BBC6D0");
 
 	private ColorPattern(int limit, String gaugeColor, String stackedColors) {
 		this.limit = limit;
