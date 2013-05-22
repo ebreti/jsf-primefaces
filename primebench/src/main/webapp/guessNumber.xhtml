@@ -34,7 +34,7 @@
 					modal="true" closeOnEscape="true">
 					O objetivo do jogo é adivinhar um número sorteado entre 0 e 99.
 					<br />
-					Você tem direito a 10 tentativas válidas por partida. Considero como válidas as tentativas numéricas dentro do intervalo informado.
+					Você tem direito a #{game.limite} tentativas válidas por partida. Considero como válidas as tentativas numéricas dentro do intervalo informado.
 					<br />
 					<ul>Quando você faz uma escolha:
 						<li>se é o número sorteado ou se você já usou todas as chances, informo o resultado, mostro o gráfico "Pontos e Desempenho por Partida" e aguardo.</li>
@@ -112,7 +112,8 @@
 			<p:separator />
 			Média: [#{game.mediaFormatada}] &nbsp;&nbsp;&nbsp;
 			Tentativas: [#{game.escolhas}] &nbsp;&nbsp;&nbsp; 
-			Partidas: [#{game.partidas}]
+			Partidas: [#{game.partidas}] &nbsp;&nbsp;&nbsp; 
+			Vitórias: [#{game.vitorias}]
 		</h:form>
 	</p:panel>
 	<br style="clear: both" />

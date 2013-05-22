@@ -67,7 +67,8 @@ public class Game implements Serializable {
 	/**
 	 * Max number of tries.
 	 */
-	static final int NUM_TRIES = 10;
+	static final int NUM_TRIES = 7;
+	private int limite = NUM_TRIES;
 
 	/**
 	 * The game state.
@@ -80,8 +81,8 @@ public class Game implements Serializable {
 	private int pontos;
 	private int pontosNestaPartida;
 	private int escolhas;
-	private int escolhasNestaPartida;
 	private int partidas;
+	private int vitorias;
 
 	/**
 	 * Timestamp.
@@ -130,14 +131,17 @@ public class Game implements Serializable {
  
 	private MeterGaugeChartModel gaugeModel;
 
-    private ChartSeries pontosPorPartida = new ChartSeries();
-    private ChartSeries performance = new ChartSeries();
+    private ChartSeries pontosPorPartida;
+    private ChartSeries performance;
 
 	public Game() {
 		this.pontos = 0;
 		this.escolhas = 0;
 		this.partidas = 0;
+		this.vitorias = 0;
+		this.pontosPorPartida = new ChartSeries();
         this.pontosPorPartida.setLabel("Pontos");
+        this.performance = new ChartSeries();
         this.performance.setLabel("Desempenho");
 	}
 
@@ -148,18 +152,18 @@ public class Game implements Serializable {
 	 */
 	public void check() {
 		Calendar tempo = Calendar.getInstance();
-		this.escolhas++;
+		++this.escolhas;
 		long delta = tempo.getTimeInMillis() - this.t1.getTimeInMillis();
 		this.pontos += premiaRapidez(delta); 
 		if (guess == number) {
 			FacesContext.getCurrentInstance().addMessage(null, getWinnerMessage());
+			++this.vitorias;
 			this.pontos += premiaPrecisao();
-			this.remainingGuesses--;
 			this.terminaPartida();
 			return;
 		}
-		this.remainingGuesses--;
-		if (this.remainingGuesses <= 0) {
+		--this.remainingGuesses;
+		if (this.remainingGuesses < 1) {
 			FacesMessage finalMessage = new FacesMessage("Que pena, acabaram suas chances... Tente de novo!");
 			FacesContext.getCurrentInstance().addMessage(null, finalMessage);
 			this.terminaPartida();
@@ -185,7 +189,7 @@ public class Game implements Serializable {
 	}
 
 	private long premiaPrecisao() {
-		return this.remainingGuesses * (this.biggest - this.smallest + 1) * 10;
+		return (this.remainingGuesses + 1) * (this.biggest - this.smallest + 1) * 10;
 	}
 
 	private FacesMessage getWinnerMessage() {
@@ -224,20 +228,17 @@ public class Game implements Serializable {
 		this.remainingGuesses = Game.NUM_TRIES;
 		this.biggest = maxNumber;
 		this.number = randomNumber.get();
-		this.partidas++;
+		++this.partidas;
 		this.t1 = Calendar.getInstance();
 		this.pontosNestaPartida = -this.pontos;
-		this.escolhasNestaPartida = -this.escolhas;
 	}
 
 	public void terminaPartida() {
 		this.estado = GameState.TERMINADO;
 		this.pontosNestaPartida += this.pontos;
-		this.escolhasNestaPartida += this.escolhas;
-		this.escolhasNestaPartida = 11 - this.escolhasNestaPartida;
-		this.escolhasNestaPartida *= (NUM_TRIES * 10);
+		Number pontosDeEscolhasNestaPartida = (double) (1000 * this.remainingGuesses / NUM_TRIES);
         this.pontosPorPartida.set(String.valueOf(this.partidas), this.pontosNestaPartida);
-        this.performance.set(String.valueOf(this.partidas), this.escolhasNestaPartida);
+        this.performance.set(String.valueOf(this.partidas), pontosDeEscolhasNestaPartida);
 	}
 
 	/**
@@ -262,40 +263,28 @@ public class Game implements Serializable {
 		return estado;
 	}
 
-	public void setEstado(GameState estado) {
-		this.estado = estado;
+	public int getLimite() {
+		return limite;
 	}
 
 	public int getPontos() {
 		return pontos;
 	}
 
-	public void setPontos(int pontos) {
-		this.pontos = pontos;
-	}
-
 	public int getEscolhas() {
 		return escolhas;
-	}
-
-	public void setEscolhas(int escolhas) {
-		this.escolhas = escolhas;
 	}
 
 	public int getPartidas() {
 		return partidas;
 	}
 
-	public void setPartidas(int partidas) {
-		this.partidas = partidas;
+	public int getVitorias() {
+		return vitorias;
 	}
 
 	public Calendar getT1() {
 		return t1;
-	}
-
-	public void setT1(Calendar t1) {
-		this.t1 = t1;
 	}
 
 	public int getNumber() {
@@ -333,10 +322,9 @@ public class Game implements Serializable {
 
 	public Number getDesempenho() {
 		if (this.escolhas == 0) {
-			return NUM_TRIES * 100;
+			return 1000;
 		} else {
-			Double desempenho = (double) 100 * (((NUM_TRIES + 1) * this.partidas) - this.escolhas) / this.partidas;
-			return desempenho.intValue();
+			return (double) (1000 * ((NUM_TRIES * this.partidas) - this.escolhas + this.vitorias) / (this.partidas * NUM_TRIES));
 		}
 	}
 
