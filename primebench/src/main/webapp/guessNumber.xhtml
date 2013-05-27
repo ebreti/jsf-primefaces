@@ -34,7 +34,11 @@
 					modal="true" closeOnEscape="true">
 					O objetivo do jogo é adivinhar um número sorteado entre 0 e 99.
 					<br />
-					Você tem direito a #{game.limite} tentativas válidas por partida. Considero como válidas as tentativas numéricas dentro do intervalo informado.
+					<h:outputText value="Você está jogando no nível [#{user.level}], que lhe dá"
+		              	rendered="#{user.estado == 'CONHECIDO'}" />
+					<h:outputText value="Você tem"
+		              	rendered="#{user.estado != 'CONHECIDO'}" />
+					o direito a #{game.limite} tentativas válidas por partida. Considero como válidas as tentativas numéricas dentro do intervalo informado.
 					<br />
 					<ul>Quando você faz uma escolha:
 						<li>se é o número sorteado ou se você já usou todas as chances, informo o resultado, mostro o gráfico "Pontos e Desempenho por Partida" e aguardo.</li>
@@ -85,8 +89,8 @@
 			<p:separator />
 		    <p:messages id="messages" closable="true" />  
             <p:meterGaugeChart value="#{game.gaugeModel}" intervalOuterRadius="133" 
-            	label="Desempenho" labelHeightAdjust="110" style="height: 230px" 
-            	seriesColors="#{game.gaugeRainbow}" />
+            	label="========== Desempenho ==========" labelHeightAdjust="110" 
+            	style="height: 230px" seriesColors="#{game.gaugeRainbow}" />
             <p:barChart value="#{game.chartModel}" style="height:230px" 
             	title="Pontos e Desempenho por Partida" legendPosition="n" 
             	stacked="true" seriesColors="#{game.stickColors.stackedColors}"  

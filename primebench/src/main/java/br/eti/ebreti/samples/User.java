@@ -42,6 +42,11 @@ public class User implements Serializable {
 	 */
 	private String nickname;
 
+	/**
+	 * The level.
+	 */
+	private LevelEnum level;
+
 	@PostConstruct
 	public void reset() {
 		this.estado = UserState.DESCONHECIDO;
@@ -52,10 +57,12 @@ public class User implements Serializable {
 
 	public void loggedIn() {
 		this.estado = UserState.CONHECIDO;
+		this.level = LevelEnum.EASY;
 	}
 
 	public void loggedOut() {
 		this.estado = UserState.DESCONHECIDO;
+		this.level = LevelEnum.NORMAL;
 	}
 
 	public void validateEmailAddress(FacesContext context,
@@ -114,6 +121,14 @@ public class User implements Serializable {
 
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
+	}
+
+	public LevelEnum getLevel() {
+		return level;
+	}
+
+	public void setLevel(LevelEnum level) {
+		this.level = level;
 	}
 
 }

@@ -64,11 +64,13 @@ public class Game implements Serializable {
 
 	private static final long serialVersionUID = -4922390286153874072L;
 
+	@Inject
+	private User user;
+
 	/**
 	 * Max number of tries.
 	 */
-	static final int NUM_TRIES = 7;
-	private int limite = NUM_TRIES;
+	private int limite;
 
 	/**
 	 * The game state.
@@ -93,7 +95,7 @@ public class Game implements Serializable {
 	 * The number that the user needs to guess.
 	 */
 	private int number;
-	
+
 	/**
 	 * The users latest guess.
 	 */
@@ -128,7 +130,7 @@ public class Game implements Serializable {
 	@Inject
 	@Random
 	Instance<Integer> randomNumber;
- 
+
 	private MeterGaugeChartModel gaugeModel;
 
     private ChartSeries pontosPorPartida;
@@ -194,21 +196,21 @@ public class Game implements Serializable {
 
 	private FacesMessage getWinnerMessage() {
 		FacesMessage winnerMessage;
-		if (this.remainingGuesses == Game.NUM_TRIES) {
+		if (this.remainingGuesses == this.limite) {
 			winnerMessage = new FacesMessage("Uau! De prima! Consegue repetir?");
 			this.pontos += 2000;
 		} else {
 			this.pontos += 100 * (10 - this.remainingGuesses);
 			if (this.remainingGuesses == 1) {
 				winnerMessage = new FacesMessage("Por pouco! Acertou na última. Treine mais...");
-			} else if (this.remainingGuesses < Game.NUM_TRIES / 3) {
+			} else if (this.remainingGuesses < this.limite / 3) {
 				winnerMessage = new FacesMessage("Ufa! Acertou nas últimas!");
-			} else if (this.remainingGuesses > 2 * (Game.NUM_TRIES / 3)) {
+			} else if (this.remainingGuesses > 2 * (this.limite / 3)) {
 				winnerMessage = new FacesMessage("Boa! Está pegando a manha...");
 				this.pontos += 300;
 			} else {
 				winnerMessage = new FacesMessage("Parabéns! Você acertou na "
-						+ (Game.NUM_TRIES + 1 - this.remainingGuesses) + "ª tentativa.");
+						+ (this.limite + 1 - this.remainingGuesses) + "ª tentativa.");
 			}
 		}
 		return winnerMessage;
@@ -222,10 +224,15 @@ public class Game implements Serializable {
 	 */
 	@PostConstruct
 	public void reset() {
+		if (user.getEstado() == UserState.CONHECIDO) {
+			this.limite = user.getLevel().getLevel();
+		} else {
+			this.limite = LevelEnum.NORMAL.getLevel();
+		}
 		this.estado = GameState.PRONTO;
 		this.smallest = 0;
 		this.guess = 0;
-		this.remainingGuesses = Game.NUM_TRIES;
+		this.remainingGuesses = this.limite;
 		this.biggest = maxNumber;
 		this.number = randomNumber.get();
 		++this.partidas;
@@ -236,7 +243,7 @@ public class Game implements Serializable {
 	public void terminaPartida() {
 		this.estado = GameState.TERMINADO;
 		this.pontosNestaPartida += this.pontos;
-		Number pontosDeEscolhasNestaPartida = (double) (1000 * this.remainingGuesses / NUM_TRIES);
+		Number pontosDeEscolhasNestaPartida = (double) (1000 * this.remainingGuesses / this.limite);
         this.pontosPorPartida.set(String.valueOf(this.partidas), this.pontosNestaPartida);
         this.performance.set(String.valueOf(this.partidas), pontosDeEscolhasNestaPartida);
 	}
@@ -324,7 +331,7 @@ public class Game implements Serializable {
 		if (this.escolhas == 0) {
 			return 1000;
 		} else {
-			return (double) (1000 * ((NUM_TRIES * this.partidas) - this.escolhas + this.vitorias) / (this.partidas * NUM_TRIES));
+			return (double) (1000 * ((this.limite * this.partidas) - this.escolhas + this.vitorias) / (this.partidas * this.limite));
 		}
 	}
 
