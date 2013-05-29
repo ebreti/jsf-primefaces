@@ -10,7 +10,7 @@
 	<meta author="fmarianoc" />
 	<title>Adivinhe o número</title>
 </h:head>
-<h:body onload="if(#{game.estado == 'PRONTO'}){
+<h:body onload="if(#{gameController.estado == 'PRONTO'}){
 	var foco = document.getElementById('adivinhe:numero');
 	foco.value = '';
 	foco.focus();}">
@@ -38,7 +38,7 @@
 		              	rendered="#{user.estado == 'CONHECIDO'}" />
 					<h:outputText value="Você tem"
 		              	rendered="#{user.estado != 'CONHECIDO'}" />
-					o direito a #{game.limite} tentativas válidas por partida. Considero como válidas as tentativas numéricas dentro do intervalo informado.
+					o direito a #{gameController.limite} tentativas válidas por partida. Considero como válidas as tentativas numéricas dentro do intervalo informado.
 					<br />
 					<ul>Quando você faz uma escolha:
 						<li>se é o número sorteado ou se você já usou todas as chances, informo o resultado, mostro o gráfico "Pontos e Desempenho por Partida" e aguardo.</li>
@@ -57,20 +57,20 @@
 		<h:form id="adivinhe">
 			<!-- Instructions for the user -->
 			<h:outputText id="estive" value="Estava "
-              	rendered="#{game.estado == 'TERMINADO'}" />
+              	rendered="#{gameController.estado == 'TERMINADO'}" />
 			<h:outputText id="estou" value="Estou "
-              	rendered="#{game.estado == 'PRONTO'}" />
+              	rendered="#{gameController.estado == 'PRONTO'}" />
 			pensando
-			<h:outputText id="unico" value="em apenas um único número: #{game.smallest}."
-              	rendered="#{game.smallest == game.biggest}" />
-				<p:tooltip for="unico" rendered="#{game.estado == 'PRONTO'}"
+			<h:outputText id="unico" value="em apenas um único número: #{gameController.smallest}."
+              	rendered="#{gameController.smallest == gameController.biggest}" />
+				<p:tooltip for="unico" rendered="#{gameController.estado == 'PRONTO'}"
 					showEffect="bounce" hideEffect="drop"
 					style="background: Tomato; margin-right: 40px; text-align: right">
 					Agora vai!
 				</p:tooltip>
-			<h:outputText id="varios" value="em um número entre #{game.smallest} e #{game.biggest}."
-              	rendered="#{game.smallest != game.biggest}" />
-				<p:tooltip for="varios" rendered="#{game.estado == 'PRONTO'}"
+			<h:outputText id="varios" value="em um número entre #{gameController.smallest} e #{gameController.biggest}."
+              	rendered="#{gameController.smallest != gameController.biggest}" />
+				<p:tooltip for="varios" rendered="#{gameController.estado == 'PRONTO'}"
 					showEffect="bounce" hideEffect="drop"
 					style="background: LavenderBlush; margin-right: 40px; text-align: right">
 					Estes são os limites.
@@ -80,44 +80,44 @@
 			<!-- Input box for the users guess, plus a button to submit, and reset -->
 			<!-- These are bound using EL to our CDI beans -->
 			Sua escolha:
-			<h:inputText id="numero" value="#{game.guess}" required="true"
-				size="3" disabled="#{game.estado == 'TERMINADO'}"
-				validator="#{game.validateNumberRange}" />
+			<h:inputText id="numero" value="#{gameController.guess}" required="true"
+				size="3" disabled="#{gameController.estado == 'TERMINADO'}"
+				validator="#{gameController.validateNumberRange}" />
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<h:commandButton id="Tentar" value="Tentar"
-				action="#{game.check}" disabled="#{game.estado == 'TERMINADO'}" />
+				action="#{gameController.check}" disabled="#{gameController.estado == 'TERMINADO'}" />
 			<p:separator />
 		    <p:messages id="messages" closable="true" />  
-            <p:meterGaugeChart value="#{game.gaugeModel}" intervalOuterRadius="133" 
-            	label="========== Desempenho ==========" labelHeightAdjust="110" 
-            	style="height: 230px" seriesColors="#{game.gaugeRainbow}" />
-            <p:barChart value="#{game.chartModel}" style="height:230px" 
+            <p:meterGaugeChart value="#{gameController.gaugeModel}" intervalOuterRadius="133" 
+            	label="========== Desempenho ===========" labelHeightAdjust="110" 
+            	style="height: 230px" seriesColors="#{gameController.gaugeRainbow}" />
+            <p:barChart value="#{gameController.chartModel}" style="height:230px" 
             	title="Pontos e Desempenho por Partida" legendPosition="n" 
-            	stacked="true" seriesColors="#{game.stickColors.stackedColors}"  
-            	zoom="true" rendered="#{game.estado == 'TERMINADO'}" />
+            	stacked="true" seriesColors="#{gameController.stickColors.stackedColors}"  
+            	zoom="true" rendered="#{gameController.estado == 'TERMINADO'}" />
 			<p:separator />
 			Você 
 			<h:outputText id="tinha" value="tinha"
-              	rendered="#{game.estado == 'TERMINADO'}" />
-			<h:outputText id="tem" value="tem"
-              	rendered="#{game.estado == 'PRONTO'}" />
-			mais #{game.remainingGuesses}
-			<h:outputText id="plural" value="chances."
-              	rendered="#{game.remainingGuesses != 1}" />
-			<h:outputText id="singular" value="chance."
-              	rendered="#{game.remainingGuesses == 1}" />
+              	rendered="#{gameController.estado == 'TERMINADO'}" />
+			<h:outputText id="tem" value="tem mais"
+              	rendered="#{gameController.estado == 'PRONTO'}" />
+			#{gameController.remainingGuesses}
+			<h:outputText id="plural" value=" chances."
+              	rendered="#{gameController.remainingGuesses != 1}" />
+			<h:outputText id="singular" value=" chance."
+              	rendered="#{gameController.remainingGuesses == 1}" />
             &nbsp;
 			<h:commandButton id="Recomecar" value="Recomeçar"
-				rendered="#{game.estado == 'TERMINADO'}"
-				action="#{game.reset}" immediate="true" />
+				rendered="#{gameController.estado == 'TERMINADO'}"
+				action="#{gameController.reset}" immediate="true" />
 			<p:separator />
-			Você está com [#{game.pontos}] pontos.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			Você está com [#{gameController.pontos}] pontos.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	    	<h:commandButton action="home" immediate="true" value="Menu" />
 			<p:separator />
-			Média: [#{game.mediaFormatada}] &nbsp;&nbsp;&nbsp;
-			Tentativas: [#{game.escolhas}] &nbsp;&nbsp;&nbsp; 
-			Partidas: [#{game.partidas}] &nbsp;&nbsp;&nbsp; 
-			Vitórias: [#{game.vitorias}]
+			Média: [#{gameController.mediaFormatada}] &nbsp;&nbsp;&nbsp;
+			Tentativas: [#{gameController.escolhas}] &nbsp;&nbsp;&nbsp; 
+			Partidas: [#{gameController.partidas}] &nbsp;&nbsp;&nbsp; 
+			Vitórias: [#{gameController.vitorias}]
 		</h:form>
 	</p:panel>
 	<br style="clear: both" />

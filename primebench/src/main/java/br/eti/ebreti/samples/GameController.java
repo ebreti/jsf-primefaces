@@ -19,7 +19,9 @@ package br.eti.ebreti.samples;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
@@ -37,7 +39,7 @@ import org.primefaces.model.chart.MeterGaugeChartModel;
 
 /**
  * <p>
- * {@link Game} contains all the business logic for the application, and also
+ * {@link GameController} contains all the business logic for the application, and also
  * serves as the controller for the JSF view.
  * </p>
  * <p>
@@ -60,7 +62,7 @@ import org.primefaces.model.chart.MeterGaugeChartModel;
  */
 @Named
 @SessionScoped
-public class Game implements Serializable {
+public class GameController implements Serializable {
 
 	private static final long serialVersionUID = -4922390286153874072L;
 
@@ -136,7 +138,7 @@ public class Game implements Serializable {
     private ChartSeries pontosPorPartida;
     private ChartSeries performance;
 
-	public Game() {
+	public GameController() {
 		this.pontos = 0;
 		this.escolhas = 0;
 		this.partidas = 0;
@@ -154,14 +156,15 @@ public class Game implements Serializable {
 	 */
 	public void check() {
 		Calendar tempo = Calendar.getInstance();
-		++this.escolhas;
 		long delta = tempo.getTimeInMillis() - this.t1.getTimeInMillis();
 		this.pontos += premiaRapidez(delta); 
+		++this.escolhas;
 		if (guess == number) {
 			FacesContext.getCurrentInstance().addMessage(null, getWinnerMessage());
 			++this.vitorias;
 			this.pontos += premiaPrecisao();
 			this.terminaPartida();
+			--this.remainingGuesses;
 			return;
 		}
 		--this.remainingGuesses;
